@@ -41,9 +41,13 @@ Toto je vsetko v operacnej pamati, v rámci.
 Pomocou &premenna ziskame adresu premennej. 
 Dereferencovanie .......
 
+Ukazovatel je neaka kvazi premenna (nezaujima ziadne miesto, je to vec kompilatora)
+
 * **&premenna** - adresa premennej
 * **premenna** - hodnota premennej
-* ***premenna**
+* **int *premenna** - len smerovka na premennu (neinicializuje za tym ziadnu premnnu! len adresa na nu)
+* ** *premenna ** - dereferencovanie smerovky na premennu (tj dostaneme obsah premennej)
+
 
 ### Operatory
 
@@ -135,3 +139,17 @@ Kompilacia
 * System calls (systemove volania) - Funkcie ktorymi vieme komunikovat s operacnym systemom
 * Library calls - rozsiruju moznosti systemovych volani
 
+## Retazce
+
+	char retazec[20];
+	
+Poznamka: kazdy retazec musi obsahovat nulovy znak. Tj. AHOJ\0........
+
+## Typy premennych
+
+* **auto** - automaticky vznikaju automaticky zanikaju
+* **static** - nedochadza k destrukcii hodnoty
+* **register** - tak aby hodnota premennej bola v registri procesora (register je najrychlejsia pamat)
+* **extern** - pracujes s premennou ktora je v inom subore
+* **const** - oznaci ako nemeniacu premennu
+* **volatile** - (volatile - inkontinentna [Peto povedal]) pamat ktora po odpojeni elektriny strati obsah - kompilator nerobi optimalizaciu ale spravujeme si to sami (kompilator by mohol vyhodit cele bloky tohto kodu)
