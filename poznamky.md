@@ -38,7 +38,12 @@ Toto je vsetko v operacnej pamati, v rámci.
 
 ### Referencovanie premennych
 
-Pomocou &premenna ziskame adresu premennej. Dereferencovanie .......
+Pomocou &premenna ziskame adresu premennej. 
+Dereferencovanie .......
+
+* **&premenna** - adresa premennej
+* **premenna** - hodnota premennej
+* ***premenna**
 
 ### Operatory
 
@@ -120,7 +125,13 @@ Ulozit ako program01.c
 		return 0;
 	}
 	
-Kopilacia
+Kompilacia
 
 	gcc program01.c -o program01
+
+
+## Volania
+
+* System calls (systemove volania) - Funkcie ktorymi vieme komunikovat s operacnym systemom
+* Library calls - rozsiruju moznosti systemovych volani
 
