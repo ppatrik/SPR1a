@@ -62,12 +62,65 @@ Pomocou &premenna ziskame adresu premennej. Dereferencovanie .......
 	
 ### Cyklus
 
-	for(int i =0; i < 10; i++) {
+	// 1. moznost
+	int i;
+	for(i = 0; i < 10; i++) {
+		// program opakovany 10 krat
+	}
+	// 2. moznost (tento sa vzdy vykona aspon raz)
+	int i = 0;
+	do {
+		i++;
+		// program opakovany 10 krat
+	} while (i < 10);
+	// 3. moznost
+	int i = 0;
+	while(i < 10) {
+		i++;
 		// program opakovany 10 krat
 	}
 	
-Priklad nekonecneho cyklu
+Priklady nekonecneho cyklu:
 
+	// 1. moznost
 	for(;;) {
 		// program opakovany dookola
 	}
+	// 2. moznost
+	while(1) {
+		// program opakovany dookola
+	}
+	// 3. moznost
+	do {
+		// program opakovany dookola
+	} while(1);
+
+Moznosti ukoncenia vykonavania cyklu:
+
+* **break;** ukonci cyklus a program pokracuje dalej
+* **continue;** ukonci aktualne vykonavany program v cykle a pokracuje na dalsiu iteraciu cyklu
+
+### Example
+
+Ulozit ako program01.c
+
+	main()
+	{
+		int i = 10;
+		
+		if(i == 10) {
+			// pravda
+			int i = 20; // rozsha platnosti (teraz sa nedostanem k prvej i
+			// resp. iba ak poznam jej adresu)
+		} else {
+			// nepravda
+		}
+		
+		
+		return 0;
+	}
+	
+Kopilacia
+
+	gcc program01.c -o program01
+
