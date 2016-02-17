@@ -6,51 +6,53 @@ Heslo do virtualneho stroja **student**
 
 Materialy: http://ics.upjs.sk/~pisarcik/sp/
 
-## Zakladne typy
+## Programovanie v c++
 
-* int - minimalne 16 bitovy (podla specifikacie)
-* short
-* byte 8bit (vacsinou unsigned, char je podobny)
-* char 8bit
-* long
-* float - min 16bit
-* double - min 32bit
+### Zakladne typy
 
-### Znamienkove / neznamienkove typy
+* **int** - minimalne 16 bitovy (podla specifikacie)
+* **short**
+* **byte** 8bit (vacsinou unsigned, char je podobny)
+* **char** 8bit
+* **long**
+* **float** - min 16bit
+* **double** - min 32bit
+
+#### Znamienkove / neznamienkove typy
 
 Pred typ zadame definovanie:
 
-* unsigned - neznamienkovy typ
-* signed - znamienkovy typ - nemusime zadavat je to defaultny typ
+* **unsigned** - neznamienkovy typ
+* **signed** - znamienkovy typ - nemusime zadavat je to defaultny typ
 
-## Princip zavedenia programu do pamäte
+### Princip zavedenia programu do pamäte
 
 Toto je vsetko v operacnej pamati, v rámci.
 
-* code
-* data - globalne staticke inicializovane (ma nastavenu hodnotu)
-* BSS - globalne staticke neinicializovane (nema nastavenu hodnotu)
-* HEAP - halda - dynamicky alokovana pamät
-* STACK - zasobnik - ukladanie lokalnych premennych
+* **CODE**
+* **DATA** - globalne staticke inicializovane (ma nastavenu hodnotu)
+* **BSS** - globalne staticke neinicializovane (nema nastavenu hodnotu)
+* **HEAP** - halda - dynamicky alokovana pamät
+* **STACK** - zasobnik - ukladanie lokalnych premennych
 
 
-## Referencovanie premennych
+### Referencovanie premennych
 
-pomocou &premenna ziskame adresu premennej
+Pomocou &premenna ziskame adresu premennej. Dereferencovanie .......
 
-## Operatory
+### Operatory
 
 * +, -, /, *
 * & | - bitove operatory (sucin, sucet)
 * ^ xor
 * % modulo
 
-## Komentare
+### Komentare
 
 * jednoriadkovy - pred komentarom treba dve lomky //
 * viac riadkovy - text obaleny /* */
 
-## Podmienky
+### Podmienky
 
 	if( /* podmienky */ ) {
 		// splnene
@@ -58,9 +60,14 @@ pomocou &premenna ziskame adresu premennej
 		// nesplnene
 	}
 	
-## Cyklus
+### Cyklus
 
 	for(int i =0; i < 10; i++) {
 		// program opakovany 10 krat
 	}
 	
+Priklad nekonecneho cyklu
+
+	for(;;) {
+		// program opakovany dookola
+	}
