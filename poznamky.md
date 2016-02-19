@@ -15,8 +15,6 @@ Materialy: http://ics.upjs.sk/~pisarcik/sp/
 * **byte** 8bit (vacsinou unsigned, char je podobny)
 * **char** 8bit
 * **long**
-* **float** - min 16bit
-* **double** - min 32bit
 
 #### Znamienkove / neznamienkove typy
 
@@ -25,7 +23,21 @@ Pred typ zadame definovanie:
 * **unsigned** - neznamienkovy typ
 * **signed** - znamienkovy typ - nemusime zadavat je to defaultny typ
 
-### Princip zavedenia programu do pamäte
+### S pohyblivou desatinou ciarkou:
+
+* **float** - min 16bit
+* **double** - min 32bit
+
+### Typy premennych
+
+* **auto** - automaticky vznikaju automaticky zanikaju
+* **static** - nedochadza k destrukcii hodnoty
+* **register** - tak aby hodnota premennej bola v registri procesora (register je najrychlejsia pamat)
+* **extern** - pracujes s premennou ktora je v inom subore
+* **const** - oznaci ako nemeniacu premennu
+* **volatile** - (volatile - inkontinentna [Peto povedal]) pamat ktora po odpojeni elektriny strati obsah - kompilator nerobi optimalizaciu ale spravujeme si to sami (kompilator by mohol vyhodit cele bloky tohto kodu)
+
+## Princip zavedenia programu do pamäte
 
 Toto je vsetko v operacnej pamati, v rámci.
 
@@ -35,8 +47,7 @@ Toto je vsetko v operacnej pamati, v rámci.
 * **HEAP** - halda - dynamicky alokovana pamät
 * **STACK** - zasobnik - ukladanie lokalnych premennych
 
-
-### Referencovanie premennych
+## Referencovanie premennych
 
 Pomocou &premenna ziskame adresu premennej. 
 Dereferencovanie .......
@@ -48,28 +59,56 @@ Ukazovatel je neaka kvazi premenna (nezaujima ziadne miesto, je to vec kompilato
 * **int *premenna** - len smerovka na premennu (neinicializuje za tym ziadnu premnnu! len adresa na nu)
 * ** *premenna ** - dereferencovanie smerovky na premennu (tj dostaneme obsah premennej)
 
-
-### Operatory
+## Operatory
 
 * +, -, /, *
 * & | - bitove operatory (sucin, sucet)
 * ^ xor
 * % modulo
 
-### Komentare
+## Komentare
 
 * jednoriadkovy - pred komentarom treba dve lomky //
 * viac riadkovy - text obaleny /* */
 
-### Podmienky
+## Podmienky
+
+Jednoducha podmienka
 
 	if( /* podmienky */ ) {
-		// splnene
+		// splnene podmienky
+	}
+
+Podmienka s else vetvou
+
+	if( /* podmienky */ ) {
+		// splnene podmienky
 	} else {
 		// nesplnene
 	}
+
+Viacnasobna podmienka
+
+	if( /* podmienky */ ) {
+		// splnene podmienky
+	} else if( /* dalsie podmienky */ ) {
+		// splnene dalsie podmienky, nesplnene podmienky z prvej vetvy
+	} else {
+		// nesplnene ani z prvej ani z druhej
+	}
 	
-### Cyklus
+Podmienky typu switch
+
+	switch(i) {
+		case 1: /* prikazdy ak i = 1 */ break;
+		case 2: /* prikazdy ak i = 2 */ break;
+		case 3: /* prikazdy ak i = 3 */ break;
+		default: /* prikazdy ak i bolo ine ako 1,2,3 */
+	}
+	
+V pripade ak break nebudeme vyuzivat tak bude kod postupovat od splneneho case az po koniec switchu
+	
+## Cyklus
 
 	// 1. moznost
 	int i;
@@ -145,11 +184,11 @@ Kompilacia
 	
 Poznamka: kazdy retazec musi obsahovat nulovy znak. Tj. AHOJ\0........
 
-## Typy premennych
+## Priorita operácií
 
-* **auto** - automaticky vznikaju automaticky zanikaju
-* **static** - nedochadza k destrukcii hodnoty
-* **register** - tak aby hodnota premennej bola v registri procesora (register je najrychlejsia pamat)
-* **extern** - pracujes s premennou ktora je v inom subore
-* **const** - oznaci ako nemeniacu premennu
-* **volatile** - (volatile - inkontinentna [Peto povedal]) pamat ktora po odpojeni elektriny strati obsah - kompilator nerobi optimalizaciu ale spravujeme si to sami (kompilator by mohol vyhodit cele bloky tohto kodu)
+* zatvorky
+* nasobenie, delenie (postupuje sa zlava)
+* scitanie, odcitanie (postupuje sa zlava)
+
+Zdroj: http://en.cppreference.com/w/c/language/operator_precedence
+
