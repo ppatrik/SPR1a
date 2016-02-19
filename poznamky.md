@@ -1,6 +1,8 @@
-# Prednaska 17.02.2016
+# Prednaska
 
-Uvodne stretnutie k zopakovaniu jazyka c++.
+Uvodne stretnutia k zopakovaniu jazyka c++.
+
+Dátum: 17.02.2016, 19.02.2016
 
 Heslo do virtualneho stroja **student**
 
@@ -198,3 +200,28 @@ Zdroj: http://en.cppreference.com/w/c/language/operator_precedence
 * Big endian
 
 Zdroj: https://en.wikipedia.org/wiki/Endianness
+
+## Makra
+
+Riadiace prikazy pre kompilator
+
+	#define PRAVDA 1
+	#define NEPRAVDA 0
+
+V makrach su aj podmienkove bloky
+
+	#ifndef
+	#undef
+	#ifdef
+	#endif
+
+## Include
+
+Systemove nacitavania
+
+	#include <nieco.h>
+
+Lokalne nacitavania
+
+	#include "niecomoje.h"
+

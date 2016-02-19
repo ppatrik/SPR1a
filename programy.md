@@ -24,3 +24,11 @@ Nacitanie vstupu programu (argumenty)
 ## Program 06 [program06.c]
 
 Ukazka little endian
+
+## Program 07 [program07.c]
+
+Nacitanie retazcov, vypisanie ich opacne
+
+## Program 08 [program08.c]
+
+Ukazka hlavickovych suborov
