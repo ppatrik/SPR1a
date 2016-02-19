@@ -1,3 +1,4 @@
 programy/*
 !programy/*.c
+!programy/*.h
 !programy/*.txt
