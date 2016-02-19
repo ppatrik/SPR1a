@@ -192,3 +192,9 @@ Poznamka: kazdy retazec musi obsahovat nulovy znak. Tj. AHOJ\0........
 
 Zdroj: http://en.cppreference.com/w/c/language/operator_precedence
 
+## Endianita
+
+* Little endian - opacne ulozenie bajtov v ramke
+* Big endian
+
+Zdroj: https://en.wikipedia.org/wiki/Endianness

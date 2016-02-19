@@ -16,3 +16,11 @@ Praca s retezcami
 
 Pouzitie switch na spracovanie vstupu z klavesnice.
 Povoleny vstup je A-D (a-d) a vypise sa adekvatna hlaska k tomu.
+
+## Program 05 [program05.c]
+
+Nacitanie vstupu programu (argumenty)
+
+## Program 06 [program06.c]
+
+Ukazka little endian
