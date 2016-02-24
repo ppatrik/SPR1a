@@ -32,3 +32,7 @@ Nacitanie retazcov, vypisanie ich opacne
 ## Program 08 [program08.c]
 
 Ukazka hlavickovych suborov
+
+## Program 09 [program09.c]
+
+Ukazka nacitavania fgets

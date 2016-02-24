@@ -186,6 +186,14 @@ Kompilacia
 	
 Poznamka: kazdy retazec musi obsahovat nulovy znak. Tj. AHOJ\0........
 
+### include string.h
+
+* **strlen** - dlzka retazca (pocet znakov po nulovy znak)
+* **strcpy** - kopiruje retazce
+* **strcmp** - porovnava retazce znak po znaku v ramci acsii tabulky
+* **memset** - vyplni pamat konstatnym znakom
+* **strstr** - hladanie substringu v stringu
+
 ## Priorita operácií
 
 * zatvorky
@@ -219,9 +227,64 @@ V makrach su aj podmienkove bloky
 
 Systemove nacitavania
 
-	#include <nieco.h>
+	#include <niecosystemove.h>
 
 Lokalne nacitavania
 
 	#include "niecomoje.h"
+
+## Štruktúry
+
+Je to kvázi objekt. Obsahuje isté dátové zložky, 
+ku ktorým pristupujeme cez nazvanu štruktúru.
+
+	struct nazov {
+		int frekvencia;
+		int ram;
+		char nazov[20];
+	};
+
+Pouzitie struktury
+
+	struct nazov premenna; // deklaracia premennej typu struct nazov
+	premenna.frekvencia = 20;
+	premenna.ram = 4096;
+	
+	struct nazov *premenna2; // ukazovatel
+	// ak premenna je ukazovatel tak pre pristup ku pamäti ziskavame pomocou sipkovej notacie
+	premena2->frekvencia = 20;
+	premenna->ram = 4096;
+	
+Definovanie struktury na zakladny typ premennej
+
+	typedef nazov pc;
+	
+	// deklaracia premennej je potom
+	pc premenna3;
+		
+## Enumeratory
+
+Pomenovavanie tzv. bulharskych konstatnt
+
+	enum tyzden {pondelok, utorok, streda, stvrtok, piatok, sobota, nedela};
+	// kompilator to pretransformuje tak ze nazvy budu cisla a postune sa budu incrementovat
+	// tj. pondelok bude 0, utorok 1, ....
+	enum tyzden {pondelok=1, utorok, streda, stvrtok, piatok, sobota, nedela};
+	// upravenie cislovania toto bude cislovat od 1
+	
+Pouzitie enumeratory
+
+	typedef enum tyzden week;
+	week w;
+	w = pondelok;
+
+## Praca s periferiami
+
+Pri praci z periferiami od operacneho systemu dostavame popisovace (descriptory)
+
+Tieto popisovace su cisla, pod ktorymi operacny system uz vie ktore to je
+
+* 0 - standartny vystup
+* 1 - standartny vstup
+* 2 - chybovy vystup
 
