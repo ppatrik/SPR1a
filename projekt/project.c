@@ -18,7 +18,8 @@ int main(int argc, char *argv[]) {
         vypis("-------------------------------------");
         vypis("[1] Pridanie osoby");
         vypis("[2] Zobrazenie osoby");
-        vypis("[3] Osdtránenie osoby");
+        vypis("[3] Odstránenie osoby");
+        vypis("[4] Listing osoby");
         vypis("[Q] Ukončenie programu");
         vypis("-------------------------------------");
         printf("Zadaj voľbu: ");
@@ -35,9 +36,13 @@ int main(int argc, char *argv[]) {
             case '3':
 
                 break;
+            case '4':
+                displayPersons();
+                break;
             case '0':
             case 'q':
             case 'Q':
+                vypis("Ahoj, prajem pekný deň :)");
                 return EXIT_SUCCESS;
             default:
                 vypis("Neznama volba!");

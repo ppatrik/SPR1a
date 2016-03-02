@@ -11,6 +11,7 @@
 #define NAME_LENGTH 50
 #define LOGIN_LENGTH 50
 #define PASSWD_LENGTH 50
+#define PERSON_LENGTH 558 /* suma dlzok plus 2 inty(po 4 bajty) */
 #define SHELL_FILE "etc/users.bin"
 
 typedef enum a {inactive, active} account;
@@ -27,5 +28,6 @@ typedef struct p {
 } person;
 
 void addPerson(void);
+void displayPersons(void);
 
 #endif /* __PERSON_H__ */
