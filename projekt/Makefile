@@ -2,7 +2,7 @@ CC = gcc
 
 INC = .
 FLAGS = -Wall
-STATIC = -static
+STATIC =
 OUTPUT = -o
 RM = rm -f
 

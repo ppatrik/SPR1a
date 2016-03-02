@@ -6,35 +6,42 @@
 #include "person.h"
 
 #define PWD_FILE "password.secret"
+#define INPUT_LENGTH 3 /* 3 pretoze ak by tam bol neaky skryty znak */
 
-int main(int argc, char *argv[])
-{
-    FILE *myFile = NULL;
-    myFile = fopen(PWD_FILE, "r");
-    if(myFile == NULL) {
-        vypis("Subor s heslom neexistuje!");
-        return EXIT_FAILURE;
+int main(int argc, char *argv[]) {
+    while (1) {
+        char volba[INPUT_LENGTH];
+        printf("\n");
+        printf("\n");
+        printf("\n");
+        printf("\n");
+        vypis("-------------------------------------");
+        vypis("[1] Pridanie osoby");
+        vypis("[2] Zobrazenie osoby");
+        vypis("[3] Osdtránenie osoby");
+        vypis("[Q] Ukončenie programu");
+        vypis("-------------------------------------");
+        printf("Zadaj voľbu: ");
+        fgets(volba, INPUT_LENGTH, stdin);
+
+        switch (volba[0]) {
+            case '1':
+                addPerson();
+                break;
+            case '2':
+
+
+                break;
+            case '3':
+
+                break;
+            case '0':
+            case 'q':
+            case 'Q':
+                return EXIT_SUCCESS;
+            default:
+                vypis("Neznama volba!");
+                break;
+        }
     }
-    char pwd[30], *pwd_save;
-    pwd_save = pwd;
-    char c;
-    do {
-        c = fgetc(myFile);
-        *pwd_save = c;
-        pwd_save++;
-    } while(c != EOF);
-    *--pwd_save = 0;
-
-    fclose(myFile);
-
-	char password[20];
-	printf("Pre vstup do programu zadajte heslo: ");
-	fgets(password, 19, stdin);
-	
-	if(strncmp(password, pwd, strlen(pwd)) != 0) {
-		vypis("Jožo! Zas si zabudol heslo?\n\n");
-		return EXIT_FAILURE;
-	}
-	
-	return EXIT_SUCCESS;
 }

@@ -1,19 +1,31 @@
 #ifndef __PERSON_H__
 #define __PERSON_H__
 
-typedef enum s {MALE, FEMALE} gender;
-typedef enum e {ELEMENTARY,HIGH,UNIVERSITY} education;
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "basic.h"
+
+#define SHELL_LENGTH 200
+#define HOME_LENGHT 200
+#define NAME_LENGTH 50
+#define LOGIN_LENGTH 50
+#define PASSWD_LENGTH 50
+#define SHELL_FILE "etc/users.bin"
+
+typedef enum a {inactive, active} account;
 
 typedef struct p {
-	char *name;
-	char *surname;
-	unsigned short age;
-	gender sex;
-	unsigned short weight;
-	unsigned short height;
-	education edu;
+	int uid;
+	int gid;
+	char name[NAME_LENGTH];
+    char login[LOGIN_LENGTH];
+    char password[PASSWD_LENGTH];
+	char home[HOME_LENGHT];
+    char shell[SHELL_LENGTH];
+	account active;
 } person;
 
-person *addPerson(void);
+void addPerson(void);
 
 #endif /* __PERSON_H__ */
