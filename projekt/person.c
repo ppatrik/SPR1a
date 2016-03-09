@@ -1,5 +1,9 @@
 #include "person.h"
 
+person *users = NULL;
+int cnt_usr = 0;
+int uni_fd = -1;
+
 void addPerson() {
     person pp;
 
@@ -86,24 +90,42 @@ void writePerson(person pp) {
 }
 
 void displayPersons(void) {
-    FILE *fp = fopen(SHELL_FILE, "r");
-    if (fp == NULL) werror("Chyba otvorenia súboru", -1);
 
-    char *buffer = NULL;
+    openDB();
+    for (int i = 0; i < cnt_usr; i++) {
+        writePerson(users[i]);
+    }
+    printf("-------------------------------\n");
+}
 
-    while (!feof(fp)) {
-        buffer = (char *) malloc(PERSON_LENGTH);
-        if (buffer == NULL) werror("Nepodarilo sa alokovať pamäť", -2);
-        int count = (int) fread(buffer, sizeof(char), PERSON_LENGTH, fp);
-        if (count == 0) {
-            break;
-        }
-        if (count != PERSON_LENGTH) werror("Chyba citania", -3);
-        person pp = parsePerson(buffer);
-        writePerson(pp);
+void openDB() {
+    uni_fd = open(SHELL_FILE, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+    if (uni_fd < 0) {
+        werror("Nepodarilo sa otvorit subor!", -1);
     }
 
-    printf("-------------------------------\n");
-    fclose(fp);
-    free(buffer);
+    struct stat fileinfo;
+    fstat(uni_fd, &fileinfo);
+    int cusr = (int) fileinfo.st_size / (int) sizeof(person);
+
+    if (fileinfo.st_size) { // ked nieje prazdny subor
+        users = (person *) mmap(NULL, sizeof(person) * cusr, PROT_READ | PROT_WRITE, MAP_SHARED, uni_fd, 0);
+        if (errno != 0) {
+            close(uni_fd);
+            werror("Nepodarilo sa namapovat!", -2);
+        }
+        cnt_usr = cusr;
+        return;
+    }
+    close(uni_fd);
+}
+
+void updateDB() {
+    msync((void *) users, sizeof(person) * cnt_usr, MS_SYNC);
+}
+
+void closeDB() {
+    updateDB();
+    munmap((void *) users, sizeof(person) * cnt_usr);
+    close(uni_fd);
 }

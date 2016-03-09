@@ -4,6 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/mman.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <errno.h>
+
 #include "basic.h"
 
 #define SHELL_LENGTH 200
@@ -24,10 +31,14 @@ typedef struct p {
     char password[PASSWD_LENGTH];
 	char home[HOME_LENGHT];
     char shell[SHELL_LENGTH];
-	account active;
+	//account active;
 } person;
 
 void addPerson(void);
 void displayPersons(void);
+
+void openDB();
+void updateDB();
+void closeDB();
 
 #endif /* __PERSON_H__ */

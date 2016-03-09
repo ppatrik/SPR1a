@@ -1,8 +1,8 @@
 CC = gcc
 
 INC = .
-FLAGS = -Wall
-STATIC =
+FLAGS = -Wall -std=gnu99
+STATIC = -std=gnu99
 OUTPUT = -o
 RM = rm -f
 
