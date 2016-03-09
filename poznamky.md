@@ -288,3 +288,14 @@ Tieto popisovace su cisla, pod ktorymi operacny system uz vie ktore to je
 * 1 - standartny vstup
 * 2 - chybovy vystup
 
+## MMAP - mapovanie suborov alebo zariadeni do pamäte
+
+## Ziskanie informacii o subore
+
+Informacie ziskavame volanim stat, ktory nacita metadata zo suboroveho systemu
+
+	stat nazov suboru
+
+v cecku volame funkcie stat, fstat, lstat ktore nam do buf vlozia informacie o subore zo suboroveho systemu
+
+	fstat(int df, struct stat *buf);
