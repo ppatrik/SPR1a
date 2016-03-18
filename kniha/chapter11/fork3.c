@@ -18,7 +18,7 @@ int main()
         exit(1);
     case 0:
         message = "This is the child";
-        n = 10;
+	execlp("ps", "ps", 0);
         break;
     default:
         message = "This is the parent";
