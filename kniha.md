@@ -34,6 +34,17 @@ pomocou exec.
 
 Do forknuteho procesu nacitame program ps a vykoname ho.
 
+## alarm.c
+
+Registracia akcii na volanie kill do procesu (vlastna obsluha prijateho 
+signalu).
+
+	signal(SIGALARM, ding);
+	// registruje volanie SIGALARM, a urci ako obsluznu funkciu ding
+
+> Pri vyuzivani obsluh musime dbat na to aby tieto funkcie boli
+> atomicke (dalej nedelitelne)
+
 # Jokes
 
 > Sa celý tento proces skartoval. (Stali sa z neho karty)

@@ -9,17 +9,23 @@ RM = rm -f
 
 # targety
 
-all: project
+all: userman
 
-project: userman.o
-	$(CC) userman.o $(OUTPUT) project $(STATIC)
+userman: userman.o person.o basic.o
+	$(CC) userman.o person.o basic.o $(OUTPUT) userman $(STATIC)
 
-userman.o: userman.c
+userman.o: userman.c person.h basic.h
 	$(CC) $(FLAGS) -I$(INC) -c userman.c
 
+person.o: person.c person.h
+	$(CC) $(FLAGS) -I$(INC) -c person.c
+
+basic.o: basic.c basic.h
+	$(CC) $(FLAGS) -I$(INC) -c basic.c
+
 clean:
-	-@$(RM) userman.o project
+	-@$(RM) userman.o person.o basic.o userman
 
 run:
 	@echo "Spustam program"; \
-	./project
+	./userman
