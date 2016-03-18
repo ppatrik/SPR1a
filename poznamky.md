@@ -299,3 +299,14 @@ Informacie ziskavame volanim stat, ktory nacita metadata zo suboroveho systemu
 v cecku volame funkcie stat, fstat, lstat ktore nam do buf vlozia informacie o subore zo suboroveho systemu
 
 	fstat(int df, struct stat *buf);
+
+## Medzi prosesná komunikácia
+
+**proces** - instancia programu v pamäti
+
+**PCB** - process controll block obsahuje:
+
+- unikatny identifikator procesu
+- **ps** - informacie o aktualnych procesoch
+- **pid** - process id
+	ppid - parent process id
