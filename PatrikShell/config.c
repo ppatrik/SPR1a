@@ -34,6 +34,9 @@ int ConfigInit(char *file) {
         if (strstr(buf, "EXECUTION_TIMEOUT ")) {
             config.execution_timeout = _ConfigReadInteger(buf);
         }
+        if (strstr(buf, "HISTORY_FILE_RELATIVE ")) {
+            config.history_file_relative = _ConfigReadInteger(buf);
+        }
         if (strstr(buf, "HISTORY_FILE ")) {
             _ConfigReadString(buf, config.history_file);
         }
@@ -51,6 +54,7 @@ int ConfigPrint() {
     printf("Readed config file:\n");
     printf("EXECUTION_TIMEOUT = %d\n", ConfigGetExecutionTimeout());
     printf("HISTORY_FILE = %s\n", ConfigGetHistoryFile());
+    printf("HISTORY_FILE_RELATIVE = %d\n", ConfigGetHistoryFileRelative());
     return EXIT_SUCCESS;
 }
 
@@ -60,6 +64,10 @@ char *ConfigGetHistoryFile() {
 
 uint32_t ConfigGetExecutionTimeout() {
     return config.execution_timeout;
+}
+
+uint32_t ConfigGetHistoryFileRelative() {
+    return config.history_file_relative;
 }
 
 // endregion

@@ -16,6 +16,7 @@
 struct {
     uint32_t execution_timeout;
     char history_file[CONFIG_MAX_HISTORY_FILE_LENGTH];
+    uint32_t history_file_relative;
 } config;
 
 int ConfigInit(char *file);
@@ -25,5 +26,7 @@ int ConfigPrint();
 char *ConfigGetHistoryFile();
 
 uint32_t ConfigGetExecutionTimeout();
+
+uint32_t ConfigGetHistoryFileRelative();
 
 #endif //PATRIKSHELL_CONFIG_H

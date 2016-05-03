@@ -9,7 +9,7 @@
 #include "runner.h"
 #include "history.h"
 
-#define CONFIG_FILE "patrikshell.conf"
+#define CONFIG_FILE "/home/boss/Plocha/systemko/PatrikShell/patrikshell.conf"
 
 void _PatrikShellParseCommand(char *oldInputStr, char *newInputStr) {
     int i = 0;
@@ -19,6 +19,13 @@ void _PatrikShellParseCommand(char *oldInputStr, char *newInputStr) {
            oldInputStr[i] != '\0'; i++)
         newInputStr[i] = oldInputStr[i];
     newInputStr[i] = '\0';
+}
+
+char *_PatrikShellConcat(char *s1, char *s2) {
+    char *result = malloc(strlen(s1) + strlen(s2) + 1);
+    strcpy(result, s1);
+    strcat(result, s2);
+    return result;
 }
 
 int main() {
@@ -41,7 +48,18 @@ int main() {
         return rsp;
     }
 
-    rsp = HistoryInit(ConfigGetHistoryFile());
+    char *historyFile = ConfigGetHistoryFile();
+    if (ConfigGetHistoryFileRelative() == 1) {
+        char historyFileCwd[MAX_CMD_LEN] = "";
+        getcwd(historyFileCwd, sizeof(historyFileCwd));
+        size_t len = strlen(historyFileCwd);
+        if (historyFileCwd[len - 1] != '/') {
+            historyFileCwd[len] = '/';
+            historyFileCwd[len + 1] = '\0';
+        }
+        historyFile = _PatrikShellConcat(historyFileCwd, historyFile);
+    }
+    rsp = HistoryInit(historyFile);
     if (rsp < 0) {
         return rsp;
     }
@@ -78,24 +96,64 @@ int main() {
         }
 
         // Kontrola na buildin prikazy
-        if ((strcmp("exit", formattedInput) == 0)) {
+        if ((strncmp("exit", formattedInput, 4) == 0)) {
             printf("\nPráca s programom PatrikShell je ukončená\n");
             free(formattedInput);
             HistoryClose();
             closelog();
             return EXIT_SUCCESS;
-        } else if ((strcmp("config", formattedInput) == 0)) {
+
+        } else if ((strncmp("config", formattedInput, 6) == 0)) {
             rsp = ConfigPrint();
-        } else if ((strcmp("history", formattedInput) == 0)) {
+
+        } else if ((strncmp("history", formattedInput, 7) == 0)) {
             rsp = HistoryPrint();
+
+        } else if ((strncmp("setenv", formattedInput, 6) == 0)) {
+            char program[MAX_CMD_LEN] = "";
+            char env[MAX_CMD_LEN] = "";
+            char value[MAX_CMD_LEN] = "";
+            sscanf(formattedInput, "%s %s %s\n", program, env, value);
+            printf("nastavenie premennej prostredia þ%sþ\n", env);
+            rsp = setenv(env, value, 1);
+
+        } else if ((strncmp("getenv", formattedInput, 6) == 0)) {
+            char program[MAX_CMD_LEN] = "";
+            char env[MAX_CMD_LEN] = "";
+            sscanf(formattedInput, "%s %s\n", program, env);
+            char *value = getenv(env);
+            printf("citanie premennej prostredia\n");
+            printf("%s = %s\n", env, value);
+
+        } else if ((strncmp("chndir", formattedInput, 6) == 0)) {
+            char program[MAX_CMD_LEN] = "";
+            char dir[MAX_CMD_LEN] = "";
+            sscanf(formattedInput, "%s %s\n", program, dir);
+            printf("Change working dir to %s\n", dir);
+            rsp = chdir(_PatrikShellConcat(dir, "\0"));
+
+        } else if ((strncmp("getdir", formattedInput, 6) == 0)) {
+            char cwd[MAX_CMD_LEN] = "";
+            char *wd = getcwd(cwd, sizeof(cwd));
+            if (wd != NULL)
+                printf("Current working dir: %s\n", cwd);
+            else
+                perror("getcwd() error");
+
+        } else if ((strncmp("help", formattedInput, 4) == 0)) {
+            printf("Dostupne prikazy: config, history, setenv, getenv, chndir, getdir, help\n");
+            printf("Vyvolanie prikazu z historie !XYZ\n");
+
         } else if ((strcmp("", formattedInput) == 0)) {
             free(formattedInput);
             continue;
+
         } else {
             // spustenie prikazu cez runner s timeoutom
             rsp = RunnerRun(formattedInput, ConfigGetExecutionTimeout());
         }
         if (rsp != EXIT_SUCCESS) {
+            syslog(LOG_ERR, "Process ended with error code %d errno %d [%s]\n", rsp, errno, formattedInput);
             printf("Process ended with error code %d\n", rsp);
         }
 

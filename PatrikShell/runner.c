@@ -29,6 +29,25 @@ void _RunnerParseInput(char *userInputStr, char **cmdWithArgs) {
     }
 }
 
+void _RunnerKill(pid_t pidToKill, int *status) {
+    kill(pidToKill, SIGTERM);
+
+    bool died = false;
+    int loop = 0;
+    for (; !died && loop < 5; loop++) {
+        sleep(1);
+        if (waitpid(pidToKill, status, WNOHANG) == pidToKill) {
+            died = true;
+        }
+    }
+
+    if (!died) {
+        kill(pidToKill, SIGKILL);
+        *status = 1;
+    }
+
+}
+
 int RunnerRun(char *formattedInput, uint32_t timeout) {
     syslog(LOG_INFO, "Started %s", formattedInput);
     int i;
@@ -60,24 +79,20 @@ int RunnerRun(char *formattedInput, uint32_t timeout) {
 
         //only get here if exec failed
         syslog(LOG_ERR, "Failed RunnerRun:execvp");
+        kill(getpid(), SIGKILL);
+        return EXIT_FAILURE;
     } else if (c_pid > 0) {
         /* PARENT */
-        time_t waittime = 0;
 
-        bool sigterm = false;
+        time_t waittime = 0;
         do {
             pid = waitpid(c_pid, &status, WNOHANG);
             if (pid == 0) {
                 time_t now = time(NULL);
                 waittime = now - start;
                 if (waittime > timeout) {
-                    if (!sigterm) {
-                        kill(c_pid, SIGKILL);
-                        sleep(1);
-                        sigterm = true;
-                    } else {
-                        kill(c_pid, SIGTERM);
-                    }
+                    _RunnerKill(c_pid, &status);
+                    break;
                 }
             }
         } while (pid == 0 && waittime <= timeout);
